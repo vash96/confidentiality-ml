@@ -1,6 +1,5 @@
 from numpy import array_equal
 from sklearn import datasets
-from sklearn import decomposition
 
 import scraml
 import remote_ml
@@ -28,22 +27,13 @@ def main():
     
 
 
-    # Interaction with the remote_ml sever
-    server = remote_ml.RemoteML()
+    # Interaction with the remote_ml severs
+    server_pca = remote_ml.RemotePCA()
+    server_svd = remote_ml.RemoteSVD()
 
     # Playing with PCA
-    original_pc = server.pca(data_matrix)
-    scrambled_pc = server.pca(scrambled)
-    descrambled_pc = server.pca(descrambled)
-
-    print("{}\n{}\n{}\n\n".format(original_pc, scrambled_pc, descrambled_pc))
-
-    # Playing with SVD
-    original_s = server.svd(data_matrix)
-    scrambled_s = server.svd(scrambled)
-    descrambled_s = server.svd(descrambled)
-
-    print("{}\n{}\n{}\n\n".format(original_s, scrambled_s, descrambled_s))
+    server_pca.train(data_matrix)
+    print("PCA fault-indicator of training set (should be close to 0):", server_pca.fault_indicator(data_matrix))
 
 
 if __name__ == "__main__":

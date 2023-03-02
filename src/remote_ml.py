@@ -1,18 +1,47 @@
+from abc import ABC, abstractmethod
+from numpy import transpose
+from numpy.linalg import norm
 from sklearn.decomposition import PCA, TruncatedSVD
 from sklearn.preprocessing import StandardScaler
 
 
-class RemoteML:
-    def pca(self, data_matrix):
+class RemoteML(ABC):
+    @abstractmethod
+    def train(self, training_matrix):
         # Scaling and centering
-        data_matrix = StandardScaler().fit_transform(data_matrix)
+        self.training_matrix = StandardScaler().fit_transform(training_matrix)
 
-        # Return principal components of data_matrix
-        return PCA().fit(data_matrix).components_
+    @abstractmethod
+    def fault_indicator(self, test_matrix):
+        pass
+
+
+class RemotePCA(RemoteML):
+    ## PRIVATE
+    def _pca(self):
+        return PCA().fit(self.training_matrix).components_
+    
+    ## PUBLIC
+    def train(self, training_matrix):
+        super().train(training_matrix)
+        self.principal_components = self._pca()
         
-    def svd(self, data_matrix):
-        # Scaling and centering
-        data_matrix = StandardScaler().fit_transform(data_matrix)
+    def fault_indicator(self, test_matrix):
+        return norm(
+            test_matrix - ((test_matrix @ transpose(self.principal_components)) @ self.principal_components)
+        )
+    
 
-        # Return vector of singular values
-        return TruncatedSVD().fit(data_matrix).singular_values_
+
+class RemoteSVD(RemoteML):
+    ## PRIVATE
+    def _svd(self):
+        return TruncatedSVD().fit(self.training_matrix).singular_values_
+    
+    ## PUBLIC
+    def train(self, training_matrix):
+        super().train(training_matrix)
+        self.singular_values = self._svd()
+
+    def fault_indicator(self, test_matrix):
+        return 69
