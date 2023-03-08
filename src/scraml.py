@@ -1,9 +1,6 @@
 from numpy.random import permutation
 from numpy import argsort
 
-import Pyro5.api
-
-@Pyro5.api.expose
 class PreservationPlugin:
     def scramble(self, data_matrix, cols_scramble = False):
         perm_size = data_matrix.shape[cols_scramble]

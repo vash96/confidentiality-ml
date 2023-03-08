@@ -3,10 +3,8 @@ from numpy import vstack, transpose
 from numpy.linalg import norm
 from sklearn.decomposition import PCA, TruncatedSVD
 from sklearn.preprocessing import StandardScaler
-import Pyro5.api
 
 
-@Pyro5.api.behavior(instance_mode="single")
 class RemoteML(ABC):
     @abstractmethod
     def train(self, training_matrix):
@@ -20,7 +18,6 @@ class RemoteML(ABC):
         return test_matrix
 
 
-@Pyro5.api.expose
 class RemotePCA(RemoteML):
     ## PUBLIC
     def train(self, training_matrix):
@@ -35,7 +32,6 @@ class RemotePCA(RemoteML):
     
 
 
-@Pyro5.api.expose
 class RemoteSVD(RemoteML):
     ## PRIVATE
     def _svd(self, data_matrix):
