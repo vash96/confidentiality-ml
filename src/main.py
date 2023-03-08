@@ -1,5 +1,7 @@
 from numpy import array_equal
 from sklearn import datasets
+from os import environ
+from sys import stderr
 
 import scraml
 import remote_ml
@@ -28,12 +30,20 @@ def main():
 
 
     # Interaction with the remote_ml severs
-    server_pca = remote_ml.RemotePCA()
-    server_svd = remote_ml.RemoteSVD()
+    # Choose server to run
 
-    # Playing with PCA
-    server_pca.train(data_matrix)
-    print("PCA fault-indicator of training set (should be close to 0):", server_pca.fault_indicator(data_matrix))
+    server_type = environ.get('REMOTE_ML_TYPE')
+    if server_type is None:
+        print("Warning! Env variable 'REMOTE_ML_TYPE' does not exists and is defaulted to 'REMOTE_ML_TYPE=PCA'.", file = stderr)
+        server_type = 'PCA'
+
+    if server_type == 'PCA':
+        server = remote_ml.RemotePCA()
+    else:
+        server = remote_ml.RemoteSVD()
+
+    server.train(data_matrix)
+    print(f"Fault indicator = {server.fault_indicator(data_matrix)}")
 
 
 if __name__ == "__main__":
