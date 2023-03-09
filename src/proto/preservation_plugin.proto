@@ -1,44 +1,39 @@
 syntax = "proto3";
 
+// PreservationPlugin service
 service PreservationPlugin {
     rpc Scramble(ToScramble) returns (Scrambled) {}
 
-    rpc DeScramble(Scrambled) returns (ToScramble) {}
+    rpc DeScramble(Scrambled) returns (NDArray) {}
 }
 
 
+enum ScrambleKind {
+    ROW = 0;
+    COL = 1;
+}
 
 
 message ToScramble {
-    NDArray data = 1;
+    NDArray array = 1;
+    ScrambleKind kind = 2;
 }
 
 
 
 message Scrambled {
-    NDArray data = 1;
+    NDArray array = 1;
     Permutation perm = 2;
 }
 
 
 
 message Permutation {
-    enum Kind {
-        ROW = 0;
-        COL = 1;
-    }
-
-    Kind kind = 1;
-    
-    repeated int32 perm = 2; // Default to [packed = true] when syntax = "proto3"
+    bytes data = 1;
+    ScrambleKind kind = 2;
 }
 
-
-
-
-
 message NDArray {
-    repeated int32 shape = 1;
-
-    repeated float sequence = 2;
+    bytes data = 1;
+    repeated int32 shape = 2;
 }
