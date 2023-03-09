@@ -24,8 +24,8 @@ message Scrambled {
 
 message Permutation {
     enum Kind {
-        ROW = 1;
-        COL = 2;
+        ROW = 0;
+        COL = 1;
     }
 
     Kind kind = 1;
