@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+import public "basic_types.proto";
+
+package RemoteMLPackage;
+
+// RemoteML service
+service RemoteML {
+    rpc Train(NDArray) returns (Empty) {}
+
+    rpc FaultIndicator(NDArray) returns (Float) {}
+}

@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+import public "basic_types.proto";
+
+package PreservationPluginPackage;
+
 // PreservationPlugin service
 service PreservationPlugin {
     rpc Scramble(ToScramble) returns (Scrambled) {}
@@ -31,9 +35,4 @@ message Scrambled {
 message Permutation {
     bytes data = 1;
     ScrambleKind kind = 2;
-}
-
-message NDArray {
-    bytes data = 1;
-    repeated int32 shape = 2;
 }
