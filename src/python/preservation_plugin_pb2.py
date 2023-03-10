@@ -11,25 +11,25 @@ from google.protobuf import symbol_database as _symbol_database
 _sym_db = _symbol_database.Default()
 
 
+import basic_types_pb2 as basic__types__pb2
 
+from basic_types_pb2 import *
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19preservation_plugin.proto\"B\n\nToScramble\x12\x17\n\x05\x61rray\x18\x01 \x01(\x0b\x32\x08.NDArray\x12\x1b\n\x04kind\x18\x02 \x01(\x0e\x32\r.ScrambleKind\"@\n\tScrambled\x12\x17\n\x05\x61rray\x18\x01 \x01(\x0b\x32\x08.NDArray\x12\x1a\n\x04perm\x18\x02 \x01(\x0b\x32\x0c.Permutation\"8\n\x0bPermutation\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x1b\n\x04kind\x18\x02 \x01(\x0e\x32\r.ScrambleKind\"&\n\x07NDArray\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\r\n\x05shape\x18\x02 \x03(\x05* \n\x0cScrambleKind\x12\x07\n\x03ROW\x10\x00\x12\x07\n\x03\x43OL\x10\x01\x32\x61\n\x12PreservationPlugin\x12%\n\x08Scramble\x12\x0b.ToScramble\x1a\n.Scrambled\"\x00\x12$\n\nDeScramble\x12\n.Scrambled\x1a\x08.NDArray\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x19preservation_plugin.proto\x12\x19PreservationPluginPackage\x1a\x11\x62\x61sic_types.proto\"\\\n\nToScramble\x12\x17\n\x05\x61rray\x18\x01 \x01(\x0b\x32\x08.NDArray\x12\x35\n\x04kind\x18\x02 \x01(\x0e\x32\'.PreservationPluginPackage.ScrambleKind\"Z\n\tScrambled\x12\x17\n\x05\x61rray\x18\x01 \x01(\x0b\x32\x08.NDArray\x12\x34\n\x04perm\x18\x02 \x01(\x0b\x32&.PreservationPluginPackage.Permutation\"R\n\x0bPermutation\x12\x0c\n\x04\x64\x61ta\x18\x01 \x01(\x0c\x12\x35\n\x04kind\x18\x02 \x01(\x0e\x32\'.PreservationPluginPackage.ScrambleKind* \n\x0cScrambleKind\x12\x07\n\x03ROW\x10\x00\x12\x07\n\x03\x43OL\x10\x01\x32\xaf\x01\n\x12PreservationPlugin\x12Y\n\x08Scramble\x12%.PreservationPluginPackage.ToScramble\x1a$.PreservationPluginPackage.Scrambled\"\x00\x12>\n\nDeScramble\x12$.PreservationPluginPackage.Scrambled\x1a\x08.NDArray\"\x00P\x00\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'preservation_plugin_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _SCRAMBLEKIND._serialized_start=261
-  _SCRAMBLEKIND._serialized_end=293
-  _TOSCRAMBLE._serialized_start=29
-  _TOSCRAMBLE._serialized_end=95
-  _SCRAMBLED._serialized_start=97
-  _SCRAMBLED._serialized_end=161
-  _PERMUTATION._serialized_start=163
-  _PERMUTATION._serialized_end=219
-  _NDARRAY._serialized_start=221
-  _NDARRAY._serialized_end=259
-  _PRESERVATIONPLUGIN._serialized_start=295
-  _PRESERVATIONPLUGIN._serialized_end=392
+  _SCRAMBLEKIND._serialized_start=345
+  _SCRAMBLEKIND._serialized_end=377
+  _TOSCRAMBLE._serialized_start=75
+  _TOSCRAMBLE._serialized_end=167
+  _SCRAMBLED._serialized_start=169
+  _SCRAMBLED._serialized_end=259
+  _PERMUTATION._serialized_start=261
+  _PERMUTATION._serialized_end=343
+  _PRESERVATIONPLUGIN._serialized_start=380
+  _PRESERVATIONPLUGIN._serialized_end=555
 # @@protoc_insertion_point(module_scope)

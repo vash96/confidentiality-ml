@@ -2,6 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
+import basic_types_pb2 as basic__types__pb2
 import preservation_plugin_pb2 as preservation__plugin__pb2
 
 
@@ -16,14 +17,14 @@ class PreservationPluginStub(object):
             channel: A grpc.Channel.
         """
         self.Scramble = channel.unary_unary(
-                '/PreservationPlugin/Scramble',
+                '/PreservationPluginPackage.PreservationPlugin/Scramble',
                 request_serializer=preservation__plugin__pb2.ToScramble.SerializeToString,
                 response_deserializer=preservation__plugin__pb2.Scrambled.FromString,
                 )
         self.DeScramble = channel.unary_unary(
-                '/PreservationPlugin/DeScramble',
+                '/PreservationPluginPackage.PreservationPlugin/DeScramble',
                 request_serializer=preservation__plugin__pb2.Scrambled.SerializeToString,
-                response_deserializer=preservation__plugin__pb2.NDArray.FromString,
+                response_deserializer=basic__types__pb2.NDArray.FromString,
                 )
 
 
@@ -54,11 +55,11 @@ def add_PreservationPluginServicer_to_server(servicer, server):
             'DeScramble': grpc.unary_unary_rpc_method_handler(
                     servicer.DeScramble,
                     request_deserializer=preservation__plugin__pb2.Scrambled.FromString,
-                    response_serializer=preservation__plugin__pb2.NDArray.SerializeToString,
+                    response_serializer=basic__types__pb2.NDArray.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'PreservationPlugin', rpc_method_handlers)
+            'PreservationPluginPackage.PreservationPlugin', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -78,7 +79,7 @@ class PreservationPlugin(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/PreservationPlugin/Scramble',
+        return grpc.experimental.unary_unary(request, target, '/PreservationPluginPackage.PreservationPlugin/Scramble',
             preservation__plugin__pb2.ToScramble.SerializeToString,
             preservation__plugin__pb2.Scrambled.FromString,
             options, channel_credentials,
@@ -95,8 +96,8 @@ class PreservationPlugin(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/PreservationPlugin/DeScramble',
+        return grpc.experimental.unary_unary(request, target, '/PreservationPluginPackage.PreservationPlugin/DeScramble',
             preservation__plugin__pb2.Scrambled.SerializeToString,
-            preservation__plugin__pb2.NDArray.FromString,
+            basic__types__pb2.NDArray.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
