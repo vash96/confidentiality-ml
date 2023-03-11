@@ -2,7 +2,7 @@
 
 Confidentiality-preserving Machine Learning techniques based on scam(b)ling.
 
-## How to test
+## How to demo (using bash)
 
 Run `env_vars.sh` script to make ports available from pyscripts.
 ```console
@@ -53,6 +53,8 @@ docker run --detach -p ${PRESERVATION_PLUGIN_SERVER_PORT}:50051 preservation-plu
 docker run --detach -p ${PCA_SERVER_PORT}:50051 remote-pca
 docker run --detach -p ${SVD_SERVER_PORT}:50051 remote-svd
 ```
+
+Again, run `src/python/client.py` to get a demo.
 
 
 ## TODO-list
