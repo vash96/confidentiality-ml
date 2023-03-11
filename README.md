@@ -5,20 +5,20 @@ Confidentiality-preserving Machine Learning techniques based on scam(b)ling.
 ## How to test
 
 Run `env_vars.sh` script to make ports available from pyscripts.
-```bash
+```console
 chmod +x env_vars.sh
 source env_vars.sh
 ```
 
 Run each server on a separate shell.
-```bash
+```console
 python src/python/preservation_plugin_server.py
 python src/python/pca_server.py
 python src/python/svd_server.py
 ```
 
 Run client on a separate shell.
-```bash
+```console
 python src/python/client.py
 ```
 
@@ -36,7 +36,7 @@ The client will do the following:
 ## Docker-containers
 
 Alternatively, it is possible to build three docker images (one for each server).
-```bash
+```console
 # Sometimes sudo is needed
 docker build --tag preservation-plugin:latest -f docker_preservation_plugin.Dockerfile .
 docker build --tag remote-pca:latest -f docker_pca.Dockerfile .
@@ -44,7 +44,7 @@ docker build --tag remote-svd:latest -f docker_svd.Dockerfile .
 ```
 
 And run containers with port-mapping. Again, use `env_vars.sh`.
-```bash
+```console
 chmod +x env_vars.sh
 source env_vars.sh
 
