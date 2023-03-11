@@ -1,0 +1,7 @@
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - grpcio=1.52.1
+  - grpcio-tools=1.52.0
+  - scikit-learn=1.2.1
