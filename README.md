@@ -3,7 +3,7 @@
 Confidentiality-preserving Machine Learning techniques based on scam(b)ling.
 
 
-# TODO-list
+## TODO-list
 - Testing
 - Factor-Analysis server
 - Multi-stage build of docker-images (space-efficiency)
