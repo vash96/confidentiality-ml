@@ -1,5 +1,6 @@
 from concurrent import futures
 import logging
+import os
 
 from numpy.random import permutation
 from numpy import argsort, frombuffer
@@ -71,12 +72,21 @@ class PreservationPluginServicer(preservation_plugin_pb2_grpc.PreservationPlugin
 
 
 def serve():
+    logging.info('Creating PreservationPlugin gRPC server.')
+
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     preservation_plugin_pb2_grpc.add_PreservationPluginServicer_to_server(
         PreservationPluginServicer(),
         server
     )
-    server.add_insecure_port('[::]:50051')
+    port = os.environ.get('PRESERVATION_PLUGIN_SERVER_PORT')
+    if port is None:
+        logging.error("PRESERVATION_PLUGIN_SERVER_PORT does not exists!")
+        raise ValueError("PRESERVATION_PLUGIN_SERVER_PORT does not exists!")
+    
+    server.add_insecure_port(f"[::]:{port}")
+    logging.info(f"Server created. Listening on port {port}.")
+    
     server.start()
     server.wait_for_termination()
             

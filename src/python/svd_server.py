@@ -1,5 +1,6 @@
 from concurrent import futures
 import logging
+import os
 
 from numpy import frombuffer, vstack
 from numpy.linalg import norm
@@ -33,6 +34,8 @@ class RemoteSVDServicer(remote_ml_pb2_grpc.RemoteMLServicer):
         self.singular_values = None
 
     def Train(self, array, context):
+        logging.info("Training on a new dataset.")
+
         training_matrix = frombuffer(array.data).reshape(array.shape)
 
         self.scaler = StandardScaler().fit(training_matrix)
@@ -43,6 +46,7 @@ class RemoteSVDServicer(remote_ml_pb2_grpc.RemoteMLServicer):
         return remote_ml_pb2.Empty()
     
     def FaultIndicator(self, array, context):
+        logging.info("Requesting a fault indicator.")
         test_matrix = frombuffer(array.data).reshape(array.shape)
     
         test_matrix = self.scaler.transform(test_matrix)
@@ -55,12 +59,22 @@ class RemoteSVDServicer(remote_ml_pb2_grpc.RemoteMLServicer):
 
 
 def serve():
+    logging.info('Creating RemoteSVD gRPC server.')
+
+    
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     remote_ml_pb2_grpc.add_RemoteMLServicer_to_server(
         RemoteSVDServicer(),
         server
     )
-    server.add_insecure_port('[::]:50051')
+    port = os.environ.get('SVD_SERVER_PORT')
+    if port is None:
+        logging.error("SVD_SERVER_PORT does not exists!")
+        raise ValueError("SVD_SERVER_PORT does not exists!")
+    
+    server.add_insecure_port(f"[::]:{port}")
+    logging.info(f"Server created. Listening on port {port}.")
+    
     server.start()
     server.wait_for_termination()
             
