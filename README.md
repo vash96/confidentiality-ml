@@ -2,6 +2,25 @@
 
 Confidentiality-preserving Machine Learning techniques based on scam(b)ling.
 
+## Objective
+
+To implement and test the Preservation Plugin module sketched in Fig. 3 of [1].
+
+## Technical details
+
+The code is mainly written in Python (located in `src/python/`).
+There are four main modules:
+- `preservation_plugin_server.py`: implements a server for (de-)scrambling service.
+- `pca_server.py`: implements a server that simulates an external Fault Indicator service (see [1]) based on Principal Component Analysis.
+- `svd_server.py`: implements a server that simulates an external Fault Indicator service (see [1]) based on Singular Values Decomposition.
+- `client.py`: implements an hypothetical user that wants to interact with (de-)scrambling, PCA and SVD services.
+
+The communication between the different components is done via [gRPC](https://grpc.io/) which should offer better performance (in terms of latency and data-throughput)
+with respect to REST (for a comparison, see [here](https://medium.com/sahibinden-technology/benchmarking-rest-vs-grpc-5d4b34360911), [here](https://dev.to/stevenpg/grpc-vs-rest-simple-performance-test-228m)
+and [here](https://blog.dreamfactory.com/grpc-vs-rest-how-does-grpc-compare-with-traditional-rest-apis/#:~:text=%E2%80%9CgRPC%20is%20roughly%207%20times,HTTP%2F2%20by%20gRPC.%E2%80%9D)).
+
+
+
 ## How to demo (using bash)
 
 Run `env_vars.sh` script to make ports available from pyscripts.
