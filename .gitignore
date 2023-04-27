@@ -133,3 +133,4 @@ dmypy.json
 ########## CUSTOM
 /scramlenv.yml
 /bin
+/datasets
