@@ -9,7 +9,7 @@ class PCAServer(MLServer):
 
     def _failure_indicator(self, test_data) -> float:
         error = test_data - ((test_data @ self.princomp_t) @ self.princomp)
-        return norm(error)
+        return norm(error)   # This is the Frobenius norm, i.e., euclidean norm of the "vectorized" version of the matrix
 
 
 
@@ -23,3 +23,7 @@ class PCAServer(MLServer):
 
         self.princomp   = PCA().fit(self.training_data).components_[:n_comps]
         self.princomp_t = transpose(self.princomp)
+
+
+    def get_pc(self):
+        return self.princomp
